@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/locations")
+@RequestMapping("/vts/locations")
 public class LocationController {
 
     @Autowired
