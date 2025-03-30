@@ -8,6 +8,7 @@ import com.kalyan.vehicle_tracking_system.model.Vehicle;
 import com.kalyan.vehicle_tracking_system.service.VehicleService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -18,8 +19,18 @@ public class VehicleController {
     private VehicleService vehicleService;
 
     @PostMapping
-    public ResponseEntity<Vehicle> createVehicle(@RequestBody Vehicle vehicle) {
-        Vehicle savedVehicle = vehicleService.createVehicle(vehicle);
+    public ResponseEntity<Vehicle> createVehicle(@RequestBody Map<String, Object> request) {
+        Vehicle vehicle = new Vehicle();
+        
+        vehicle.setVehicleNumber((String) request.get("vehicleNumber"));
+        vehicle.setModel((String) request.get("model"));
+        vehicle.setType((String) request.get("type"));
+        vehicle.setStatus((String) request.get("status"));
+
+        // Get userId from the request
+        Long userId = request.get("userId") != null ? Long.parseLong(request.get("userId").toString()) : null;
+
+        Vehicle savedVehicle = vehicleService.createVehicle(vehicle, userId);
         return ResponseEntity.ok(savedVehicle);
     }
 
@@ -42,8 +53,21 @@ public class VehicleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Vehicle> updateVehicle(@PathVariable Long id, @RequestBody Vehicle vehicle) {
-        Vehicle updatedVehicle = vehicleService.updateVehicle(id, vehicle);
+    public ResponseEntity<Vehicle> updateVehicle(
+            @PathVariable Long id,
+            @RequestBody Map<String, Object> request) {
+
+        Vehicle vehicle = new Vehicle();
+        
+        vehicle.setVehicleNumber((String) request.get("vehicleNumber"));
+        vehicle.setModel((String) request.get("model"));
+        vehicle.setType((String) request.get("type"));
+        vehicle.setStatus((String) request.get("status"));
+
+        // Get userId from the request
+        Long userId = request.get("userId") != null ? Long.parseLong(request.get("userId").toString()) : null;
+
+        Vehicle updatedVehicle = vehicleService.updateVehicle(id, vehicle, userId);
         return ResponseEntity.ok(updatedVehicle);
     }
 

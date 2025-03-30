@@ -7,7 +7,7 @@ import com.kalyan.vehicle_tracking_system.model.Vehicle;
 
 public interface VehicleService {
 
-    Vehicle createVehicle(Vehicle vehicle);
+    Vehicle createVehicle(Vehicle vehicle, Long userId);
 
     List<Vehicle> getAllVehicles();
 
@@ -17,7 +17,7 @@ public interface VehicleService {
 
     List<Vehicle> getVehiclesByStatus(String status);
 
-    Vehicle updateVehicle(Long id, Vehicle vehicle);
+    Vehicle updateVehicle(Long id, Vehicle vehicle, Long userId);
 
     void deleteVehicle(Long id);
 }

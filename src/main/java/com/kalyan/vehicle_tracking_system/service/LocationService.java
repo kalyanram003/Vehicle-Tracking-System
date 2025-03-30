@@ -8,7 +8,7 @@ import com.kalyan.vehicle_tracking_system.model.Location;
 
 public interface LocationService {
 
-    Location createLocation(Location location);
+    Location createLocation(Location location, Long vehicleId);
 
     List<Location> getAllLocations();
 

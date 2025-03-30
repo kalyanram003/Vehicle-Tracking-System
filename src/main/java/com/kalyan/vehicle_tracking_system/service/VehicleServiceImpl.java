@@ -3,7 +3,9 @@ package com.kalyan.vehicle_tracking_system.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kalyan.vehicle_tracking_system.model.User;
 import com.kalyan.vehicle_tracking_system.model.Vehicle;
+import com.kalyan.vehicle_tracking_system.repository.UserRepository;
 import com.kalyan.vehicle_tracking_system.repository.VehicleRepository;
 
 import java.util.List;
@@ -15,8 +17,16 @@ public class VehicleServiceImpl implements VehicleService {
     @Autowired
     private VehicleRepository vehicleRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
-    public Vehicle createVehicle(Vehicle vehicle) {
+    public Vehicle createVehicle(Vehicle vehicle, Long userId) {
+        // Associate User if userId is provided
+        if (userId != null) {
+            Optional<User> user = userRepository.findById(userId);
+            user.ifPresent(vehicle::setUser);
+        }
         return vehicleRepository.save(vehicle);
     }
 
@@ -41,7 +51,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public Vehicle updateVehicle(Long id, Vehicle vehicle) {
+    public Vehicle updateVehicle(Long id, Vehicle vehicle, Long userId) {
         Vehicle existingVehicle = vehicleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Vehicle not found"));
 
@@ -49,6 +59,11 @@ public class VehicleServiceImpl implements VehicleService {
         existingVehicle.setModel(vehicle.getModel());
         existingVehicle.setType(vehicle.getType());
         existingVehicle.setStatus(vehicle.getStatus());
+
+        if (userId != null) {
+            Optional<User> user = userRepository.findById(userId);
+            user.ifPresent(existingVehicle::setUser);
+        }
 
         return vehicleRepository.save(existingVehicle);
     }
@@ -58,4 +73,3 @@ public class VehicleServiceImpl implements VehicleService {
         vehicleRepository.deleteById(id);
     }
 }
-
