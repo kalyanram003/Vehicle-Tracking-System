@@ -1,4 +1,4 @@
-package com.kalyan.vehicle_tracking_system.model;
+package com.kalyan.vehicle_tracking_system.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

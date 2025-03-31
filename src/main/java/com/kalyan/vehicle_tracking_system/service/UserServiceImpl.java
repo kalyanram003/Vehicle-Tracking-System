@@ -4,7 +4,7 @@ package com.kalyan.vehicle_tracking_system.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kalyan.vehicle_tracking_system.model.User;
+import com.kalyan.vehicle_tracking_system.entity.User;
 import com.kalyan.vehicle_tracking_system.repository.UserRepository;
 
 import java.util.List;

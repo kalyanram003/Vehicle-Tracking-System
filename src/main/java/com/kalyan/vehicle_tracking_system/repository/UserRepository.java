@@ -1,6 +1,6 @@
 package com.kalyan.vehicle_tracking_system.repository;
 
-import com.kalyan.vehicle_tracking_system.model.User;
+import com.kalyan.vehicle_tracking_system.entity.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

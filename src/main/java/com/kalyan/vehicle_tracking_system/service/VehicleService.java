@@ -3,7 +3,7 @@ package com.kalyan.vehicle_tracking_system.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.kalyan.vehicle_tracking_system.model.Vehicle;
+import com.kalyan.vehicle_tracking_system.entity.Vehicle;
 
 public interface VehicleService {
 

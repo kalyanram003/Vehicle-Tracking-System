@@ -4,7 +4,7 @@ package com.kalyan.vehicle_tracking_system.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.kalyan.vehicle_tracking_system.model.User;
+import com.kalyan.vehicle_tracking_system.entity.User;
 
 public interface UserService {
 
