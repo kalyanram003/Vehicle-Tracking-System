@@ -20,6 +20,8 @@ public class Location {
     private Double latitude;
     private Double longitude;
     private LocalDateTime timestamp;
+    @Column(length = 500)
+    private String address;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")

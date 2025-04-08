@@ -3,6 +3,7 @@ package com.kalyan.vehicle_tracking_system.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kalyan.vehicle_tracking_system.api_call.GeocodingService;
 import com.kalyan.vehicle_tracking_system.entity.Location;
 import com.kalyan.vehicle_tracking_system.entity.Vehicle;
 import com.kalyan.vehicle_tracking_system.repository.LocationRepository;
@@ -20,15 +21,31 @@ public class LocationServiceImpl implements LocationService {
     @Autowired
     private VehicleRepository vehicleRepository;
 
-    @Override
-    public Location createLocation(Location location, Long vehicleId) {
-        if (vehicleId != null) {
-            Optional<Vehicle> vehicle = vehicleRepository.findById(vehicleId);
-            vehicle.ifPresent(location::setVehicle);
-        }
+    @Autowired
+    private GeocodingService geocodingService;
 
-        return locationRepository.save(location);
+
+    @Override
+public Location createLocation(Location location, Long vehicleId) {
+    if (vehicleId != null) {
+        Optional<Vehicle> vehicle = vehicleRepository.findById(vehicleId);
+        vehicle.ifPresent(location::setVehicle);
     }
+    try {
+        String address = geocodingService.getAddressFromCoordinates(
+            location.getLatitude(), location.getLongitude()
+        );
+        location.setAddress(address);
+    } catch (Exception e) {
+        // Optional: Log the error if you have a logger
+        // logger.error("Failed to fetch address: " + e.getMessage());
+        location.setAddress("Unable to fetch address");
+    }
+
+    return locationRepository.save(location);
+}
+
+
 
     @Override
     public List<Location> getAllLocations() {
@@ -49,4 +66,6 @@ public class LocationServiceImpl implements LocationService {
     public void deleteLocation(Long id) {
         locationRepository.deleteById(id);
     }
+
+
 }
