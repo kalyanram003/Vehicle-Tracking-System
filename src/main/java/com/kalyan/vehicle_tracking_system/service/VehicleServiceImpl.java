@@ -22,7 +22,6 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public Vehicle createVehicle(Vehicle vehicle, Long userId) {
-        // Associate User if userId is provided
         if (userId != null) {
             Optional<User> user = userRepository.findById(userId);
             user.ifPresent(vehicle::setUser);

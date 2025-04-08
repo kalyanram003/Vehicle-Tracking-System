@@ -64,7 +64,7 @@ public class VehicleController {
         vehicle.setType((String) request.get("type"));
         vehicle.setStatus((String) request.get("status"));
 
-        // Get userId from the request
+      
         Long userId = request.get("userId") != null ? Long.parseLong(request.get("userId").toString()) : null;
 
         Vehicle updatedVehicle = vehicleService.updateVehicle(id, vehicle, userId);

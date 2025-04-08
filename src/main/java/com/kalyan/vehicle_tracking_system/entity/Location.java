@@ -1,5 +1,6 @@
 package com.kalyan.vehicle_tracking_system.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,5 +23,6 @@ public class Location {
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
+    @JsonIgnoreProperties("locations") 
     private Vehicle vehicle;
 }

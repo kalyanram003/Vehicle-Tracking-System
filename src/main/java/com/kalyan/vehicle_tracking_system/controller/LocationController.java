@@ -27,13 +27,12 @@ public class LocationController {
         location.setLatitude(Double.parseDouble(request.get("latitude").toString()));
         location.setLongitude(Double.parseDouble(request.get("longitude").toString()));
 
-        // ✅ Parse the timestamp properly
         String timestampStr = request.get("timestamp").toString();
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         LocalDateTime timestamp = LocalDateTime.parse(timestampStr, formatter);
         location.setTimestamp(timestamp);
 
-        // Extract vehicleId from request
+
         Long vehicleId = request.get("vehicleId") != null ? Long.parseLong(request.get("vehicleId").toString()) : null;
 
         Location savedLocation = locationService.createLocation(location, vehicleId);
