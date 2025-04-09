@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vehicle Map</title>
+  <style>
+    #map {
+      height: 500px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h2>Vehicle Location Map</h2>
+  <div id="map"></div>
+
+  <script>
+    let map;
+
+    async function initMap() {
+      // Default center
+      const defaultCenter = { lat: 17.385, lng: 78.4867 }; // Hyderabad
+
+      map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 12,
+        center: defaultCenter,
+      });
+
+      // Fetch vehicle location(s) from your Spring Boot backend
+      const response = await fetch("http://localhost:8080/vts/locations"); 
+      const locations = await response.json();
+
+      locations.forEach(loc => {
+        const latLng = {
+          lat: loc.latitude,
+          lng: loc.longitude
+        };
+
+        new google.maps.Marker({
+          position: latLng,
+          map: map,
+          title: `Vehicle ID: ${loc.vehicle.id}, Address: ${loc.address || "N/A"}`
+        });
+      });
+    }
+  </script>
+
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJ_vOzUxRiJwW_n3mAdHDAsvmGrD-kNPI&callback=initMap">
+  </script>
+</body>
+</html>
