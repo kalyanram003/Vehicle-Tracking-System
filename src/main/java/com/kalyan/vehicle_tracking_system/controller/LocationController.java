@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.kalyan.vehicle_tracking_system.entity.Location;
 import com.kalyan.vehicle_tracking_system.service.LocationService;
+import com.kalyan.vehicle_tracking_system.service.ReportService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,6 +20,9 @@ public class LocationController {
 
     @Autowired
     private LocationService locationService;
+
+    @Autowired
+    private ReportService reportService;
 
     @PostMapping
     public ResponseEntity<Location> createLocation(@RequestBody Map<String, Object> request) {
@@ -55,6 +59,20 @@ public class LocationController {
     public ResponseEntity<List<Location>> getLocationsByVehicleId(@PathVariable Long vehicleId) {
         List<Location> locations = locationService.getLocationsByVehicleId(vehicleId);
         return ResponseEntity.ok(locations);
+    }
+
+
+    @GetMapping("/report/pdf")
+    public ResponseEntity<byte[]> downloadPdfReport() {
+        byte[] pdfContent = reportService.generatePdfReport();
+        if (pdfContent == null) {
+            return ResponseEntity.internalServerError().body(null);
+        }
+
+        return ResponseEntity.ok()
+                .header("Content-Disposition", "attachment; filename=location_report.pdf")
+                .header("Content-Type", "application/pdf")
+                .body(pdfContent);
     }
 
     @DeleteMapping("/{id}")
