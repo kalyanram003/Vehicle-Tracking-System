@@ -1,4 +1,4 @@
-package com.kalyan.vehicle_tracking_system.api_call;
+package com.kalyan.vehicle_tracking_system.service;
 
 
 import org.springframework.beans.factory.annotation.Value;
