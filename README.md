@@ -49,9 +49,9 @@ The **Real-Time Vehicle Tracking System** is a pure backend application built us
 
  **Clone the repository**  :  git clone https://github.com/kalyanram003/Vehicle-Tracking-System.git
 
-**Build the project**      :  mvn clean install
+**Build the project**      :  ./mvnw clean install
 
-**Run the application**    :  mvn spring-boot:run
+**Run the application**    :  ./mvnw spring-boot:run
 
 **Access the APIs at**     :  http://localhost:8080/api/...
 
