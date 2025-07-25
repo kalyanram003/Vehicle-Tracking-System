@@ -42,7 +42,7 @@ The **Real-Time Vehicle Tracking System** is a pure backend application built us
  
  ├── model/         --> Entity classes
  
- └── util/          --> Utility classes for PDF generation, API integration**
+ └── util/          --> Utility classes for PDF generation, API integration
 
 
  ## Setup Instructions
